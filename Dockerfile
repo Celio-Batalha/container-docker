@@ -44,12 +44,13 @@ WORKDIR $APP_DIR
 RUN cd $APP_DIR
 RUN chown www-data:www-data $APP_DIR
 
-COPY --chown=www-data:www-data ./app .
+COPY --chown=www-data:www-data . .
 # RUN rm -rf vendor
 # RUN composer install --no-interaction
 
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 # RUN apt update -y && apt install nano git -y
 
-# ENTRYPOINT [ "docker/entrypoint.sh" ]
+ENTRYPOINT [ "docker/entrypoint.sh" ]
+
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/supervisord.conf"]
